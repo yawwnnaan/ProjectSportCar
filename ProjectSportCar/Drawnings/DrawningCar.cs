@@ -1,4 +1,6 @@
-﻿namespace ProjectSportCar;
+﻿using ProjectSportCar.Entities;
+
+namespace ProjectSportCar.Drawnings;
 
 /// <summary>
 /// Класс, отвечающий за прорисовку и перемещение объекта-сущности
@@ -8,17 +10,17 @@ public class DrawningCar
 	/// <summary>
 	/// Класс-сущность
 	/// </summary>
-	private EntityCar? _entityCar;
+	protected EntityCar? _entityCar;
 
 	/// <summary>
 	/// Левая координата прорисовки автомобиля
 	/// </summary>
-	private int? _startPosX;
+	protected int? _startPosX;
 
 	/// <summary>
 	/// Верхняя координата прорисовки автомобиля
 	/// </summary>
-	private int? _startPosY;
+	protected int? _startPosY;
 
 	/// <summary>
 	/// Ширина прорисовки автомобиля
@@ -28,7 +30,7 @@ public class DrawningCar
 	/// <summary>
 	/// Высота прорисовки автомобиля
 	/// </summary>
-	private readonly int _drawningCarHeight = 90;
+	private readonly int _drawningCarHeight = 100;
 
 	/// <summary>
 	/// Левая координата прорисовки автомобиля
@@ -56,17 +58,34 @@ public class DrawningCar
 	public int DrawningCarHeight => _drawningCarHeight;
 
 	/// <summary>
-	/// Инициализация свойств
+	/// Конструктор без параметров для инициализации простых полей
 	/// </summary>
-	/// <param name="speed">Скорость</param>
-	/// <param name="weight">Вес автомобиля</param>
-	/// <param name="bodyColor">Основной цвет</param>
-	public void Init(int speed, double weight, Color bodyColor)
+	private DrawningCar()
 	{
-		_entityCar = new EntityCar();
-		_entityCar.Init(speed, weight, bodyColor);
 		_startPosX = null;
 		_startPosY = null;
+	}
+
+	/// <summary>
+	/// Конструктор
+	/// </summary>
+	/// <param name="speed">Скорость</param>
+	/// <param name="weight">Вес</param>
+	/// <param name="bodyColor">Основной цвет</param>
+	public DrawningCar(int speed, double weight, Color bodyColor) : this()
+	{
+		_entityCar = new EntityCar(speed, weight, bodyColor);
+	}
+
+	/// <summary>
+	/// Конструктор для изменения константных полей
+	/// </summary>
+	/// <param name="carWidth">Ширина прорисовки автомобиля</param>
+	/// <param name="carHeight">Высота прорисовки автомобиля</param>
+	protected DrawningCar(int carWidth, int carHeight) : this()
+	{
+		_drawningCarWidth = carWidth;
+		_drawningCarHeight = carHeight;
 	}
 
 	/// <summary>
@@ -132,12 +151,12 @@ public class DrawningCar
 		_startPosY += (int)_entityCar.Step;
 	}
 
-    /// <summary>
-    /// Прорисовка объекта
-    /// </summary>
-    /// <param name="g"></param>
-    public void DrawTransport(Graphics g)
-    {
+	/// <summary>
+	/// Прорисовка объекта
+	/// </summary>
+	/// <param name="g"></param>
+	public virtual void DrawTransport(Graphics g)
+	{
         if (_entityCar is null || !_startPosX.HasValue || !_startPosY.HasValue)
         {
             return;
@@ -151,27 +170,26 @@ public class DrawningCar
         int x = _startPosX.Value;
         int y = _startPosY.Value;
 
-        // 1. Гусеничная платформа (сместили с 60 на 65)
+        // гусеница
         g.FillEllipse(trackBrush, x, y + 65, 110, 25);
         g.DrawEllipse(pen, x, y + 65, 110, 25);
 
-        // Катки (сместили с 65 на 70)
+        // катки
         for (int i = 0; i < 5; i++)
         {
-            g.FillEllipse(Brushes.Black, x + 10 + (i * 20), y + 70, 15, 15);
-            g.DrawEllipse(pen, x + 10 + (i * 20), y + 70, 15, 15);
+            g.FillEllipse(Brushes.Black, x + 10 + i * 20, y + 70, 15, 15);
+            g.DrawEllipse(pen, x + 10 + i * 20, y + 70, 15, 15);
         }
 
-        // 2. Основной корпус (сместили с 30 на 35)
+        // корпус
         g.FillRectangle(bodyBrush, x + 10, y + 35, 90, 30);
         g.DrawRectangle(pen, x + 10, y + 35, 90, 30);
 
-        // 3. Кабина (БЫЛО y - 5, СТАЛО ровно y)
-        // Теперь это самая верхняя точка объекта
+        // кабина
         g.FillRectangle(bodyBrush, x + 60, y, 40, 35);
         g.DrawRectangle(pen, x + 60, y, 40, 35);
 
-        // 5. Выхлопная труба (сместили с 10 на 15)
+        // труба
         g.FillRectangle(trackBrush, x + 25, y + 15, 5, 20);
         g.DrawRectangle(pen, x + 25, y + 15, 5, 20);
     }

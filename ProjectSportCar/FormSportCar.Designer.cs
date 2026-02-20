@@ -35,6 +35,9 @@
 			buttonDown = new Button();
 			buttonRight = new Button();
 			buttonCheckBorders = new Button();
+			buttonCreateSportCar = new Button();
+			comboBoxPointOfDestination = new ComboBox();
+			buttonMovementStep = new Button();
 			((System.ComponentModel.ISupportInitialize)pictureBoxSportCar).BeginInit();
 			SuspendLayout();
 			// 
@@ -52,9 +55,9 @@
 			buttonCreateCar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			buttonCreateCar.Location = new Point(12, 562);
 			buttonCreateCar.Name = "buttonCreateCar";
-			buttonCreateCar.Size = new Size(75, 23);
+			buttonCreateCar.Size = new Size(156, 23);
 			buttonCreateCar.TabIndex = 1;
-			buttonCreateCar.Text = "Создать";
+			buttonCreateCar.Text = "Создать автомобиль";
 			buttonCreateCar.UseVisualStyleBackColor = true;
 			buttonCreateCar.Click += ButtonCreateCar_Click;
 			// 
@@ -117,11 +120,46 @@
 			buttonCheckBorders.UseVisualStyleBackColor = true;
 			buttonCheckBorders.Click += ButtonCheckBorders_Click;
 			// 
+			// buttonCreateSportCar
+			// 
+			buttonCreateSportCar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			buttonCreateSportCar.Location = new Point(174, 562);
+			buttonCreateSportCar.Name = "buttonCreateSportCar";
+			buttonCreateSportCar.Size = new Size(223, 23);
+			buttonCreateSportCar.TabIndex = 1;
+			buttonCreateSportCar.Text = "Создать спортивный автомобиль";
+			buttonCreateSportCar.UseVisualStyleBackColor = true;
+			buttonCreateSportCar.Click += ButtonCreateSportCar_Click;
+			// 
+			// comboBoxPointOfDestination
+			// 
+			comboBoxPointOfDestination.DropDownStyle = ComboBoxStyle.DropDownList;
+			comboBoxPointOfDestination.FormattingEnabled = true;
+			comboBoxPointOfDestination.Items.AddRange(new object[] { "К центру", "К краю" });
+			comboBoxPointOfDestination.Location = new Point(790, 12);
+			comboBoxPointOfDestination.Name = "comboBoxPointOfDestination";
+			comboBoxPointOfDestination.Size = new Size(121, 23);
+			comboBoxPointOfDestination.TabIndex = 7;
+			comboBoxPointOfDestination.SelectedIndexChanged += ComboBoxPointOfDestination_SelectedIndexChanged;
+			// 
+			// buttonMovementStep
+			// 
+			buttonMovementStep.Location = new Point(836, 41);
+			buttonMovementStep.Name = "buttonMovementStep";
+			buttonMovementStep.Size = new Size(75, 23);
+			buttonMovementStep.TabIndex = 8;
+			buttonMovementStep.Text = "Шаг";
+			buttonMovementStep.UseVisualStyleBackColor = true;
+			buttonMovementStep.Click += ButtonMovementStep_Click;
+			// 
 			// FormSportCar
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(923, 597);
+			Controls.Add(buttonMovementStep);
+			Controls.Add(comboBoxPointOfDestination);
+			Controls.Add(buttonCreateSportCar);
 			Controls.Add(buttonCheckBorders);
 			Controls.Add(buttonRight);
 			Controls.Add(buttonDown);
@@ -144,5 +182,8 @@
 		private Button buttonDown;
 		private Button buttonRight;
 		private Button buttonCheckBorders;
+		private Button buttonCreateSportCar;
+		private ComboBox comboBoxPointOfDestination;
+		private Button buttonMovementStep;
 	}
 }

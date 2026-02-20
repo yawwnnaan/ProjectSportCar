@@ -1,4 +1,4 @@
-﻿namespace ProjectSportCar;
+﻿namespace ProjectSportCar.Drawnings;
 
 /// <summary>
 /// Полотно
@@ -20,12 +20,14 @@ public class CanvasForCar
 	/// </summary>
 	private int? _canvasHeight;
 
-	/// <summary>
-	/// Установка границ поля
-	/// </summary>
-	/// <param name="width">Ширина поля</param>
-	/// <param name="height">Высота поля</param>
-	public void SetPictureSize(int width, int height)
+    public DrawningCar? DrawningCar => _drawningCar;
+
+    /// <summary>
+    /// Установка границ поля
+    /// </summary>
+    /// <param name="width">Ширина поля</param>
+    /// <param name="height">Высота поля</param>
+    public void SetPictureSize(int width, int height)
 	{
 		_canvasWidth = width;
 		_canvasHeight = height;

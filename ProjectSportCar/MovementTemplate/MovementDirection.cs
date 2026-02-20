@@ -1,15 +1,10 @@
-﻿namespace ProjectSportCar;
+﻿namespace ProjectSportCar.MovementTemplate;
 
 /// <summary>
 /// Направление перемещения
 /// </summary>
-public enum DirectionType
+public enum MovementDirection
 {
-	/// <summary>
-	/// Нет направления
-	/// </summary>
-	None = 0,
-
 	/// <summary>
 	/// Вверх
 	/// </summary>
