@@ -37,13 +37,24 @@ public class CanvasForCar
 	/// <param name="car">Объект "автомобиля"</param>
 	/// <returns>true - объект сохранен, false - объект нельзя поместить в имеющиеся размеры формы</returns>
 	public bool InsertCar(DrawningCar car)
-	{
+    {
+        if (!_canvasWidth.HasValue || !_canvasHeight.HasValue)
+        {
+            return false;
+        }
+
+        if (car.DrawningCarWidth <= _canvasWidth && car.DrawningCarHeight <= _canvasHeight)
+        {
+            _drawningCar = car;
+            return true;
+        }
+        return false;
+  
 		//TODO
 		// если размеры форм не заданы, то завершаем работу метода
 		// если размеры форм есть, то проверяем, что по размерам объект можно поместить в поле
 		// если не удается - завершаем работу метода
 		// если можно, то сохраняем ссылку на объект
-		return true;
 	}
 
 	/// <summary>
@@ -53,11 +64,27 @@ public class CanvasForCar
 	/// <param name="y">Координата Y</param>
 	public void SetCarPosition(int x, int y)
 	{
-		// TODO
-		// если размеры форм не заданы или не задан объект DrawningCar, то завершаем работу метода
-		// если при установке объекта в эти координаты, он будет "выходить" за границы формы
-		// то надо изменить координаты, чтобы он оставался в этих границах
-	}
+        if (!_canvasWidth.HasValue || !_canvasHeight.HasValue || _drawningCar is null)
+        {
+            return;
+        }
+
+        if (x < 0) x = 0;
+        if (x + _drawningCar.DrawningCarWidth > _canvasWidth)
+            x = _canvasWidth.Value - _drawningCar.DrawningCarWidth;
+
+
+        if (y < 0) y = 0;
+        if (y + _drawningCar.DrawningCarHeight > _canvasHeight)
+            y = _canvasHeight.Value - _drawningCar.DrawningCarHeight;
+
+        _drawningCar.SetPosition(x, y);
+
+        // TODO
+        // если размеры форм не заданы или не задан объект DrawningCar, то завершаем работу метода
+        // если при установке объекта в эти координаты, он будет "выходить" за границы формы
+        // то надо изменить координаты, чтобы он оставался в этих границах
+    }
 
 	/// <summary>
 	/// Изменение направления перемещения
@@ -93,12 +120,22 @@ public class CanvasForCar
 				break;
 			// вправо
 			case DirectionType.Right:
-				//TODO прописать логику сдвига в право
-				break;
+                if (_drawningCar.PosX.Value + _drawningCar.DrawningCarWidth + _drawningCar.CarStep.Value < _canvasWidth.Value)
+                {
+                    _drawningCar.MoveRight();
+                    return true;
+                }
+                //TODO прописать логику сдвига в право
+                break;
 			//вниз
 			case DirectionType.Down:
-				//TODO прописать логику сдвига в вниз
-				break;
+                if(_drawningCar.PosY.Value + _drawningCar.DrawningCarHeight + _drawningCar.CarStep.Value < _canvasHeight.Value)
+    {
+                    _drawningCar.MoveDown();
+                    return true;
+                }
+                //TODO прописать логику сдвига в вниз
+                break;
 		}
 
 		return false;
