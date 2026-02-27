@@ -5,18 +5,17 @@
 /// </summary>
 public class MoveToRightDownBorder : BaseTemplateMovement
 {
-    // Проверка: достигли ли мы правого нижнего угла?
+    // достигнут ли мы правый нижний угол
     protected override bool IsTargetDestinaion()
     {
         ObjectCoordinates? obj = GetObjectCoordinates();
         if (obj == null) return false;
 
-        // Считаем, что дошли, если расстояние до края меньше шага
+        // если расстояние меньше шага
         return (FieldWidth - obj.RightBorder <= GetStep()) &&
                (FieldHeight - obj.DownBorder <= GetStep());
     }
 
-    // Логика движения к углу
     protected override void MoveToTarget()
     {
         ObjectCoordinates? obj = GetObjectCoordinates();

@@ -1,7 +1,6 @@
 using ProjectSportCar.Drawnings;
 using ProjectSportCar.MovementTemplate;
 using ProjectSportCar.Entities;
-using ProjectSportCar.MovementTemplate;
 
 namespace ProjectSportCar;
 
@@ -67,7 +66,7 @@ public partial class FormSportCar : Form
 				drawningCar = new DrawningCar(random.Next(100, 300), random.Next(1000, 3000), Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256)));
 				break;
 			case nameof(DrawningSportCar):
-				drawningCar = new DrawningSportCar(random.Next(100, 300), random.Next(1000, 3000), Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256)), Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256)), Convert.ToBoolean(random.Next(0, 2)), Convert.ToBoolean(random.Next(0, 2)), random.Next(4, 7));
+				drawningCar = new DrawningSportCar(random.Next(100, 300), random.Next(1000, 3000), Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256)), Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256)), Convert.ToBoolean(random.Next(0, 2)), Convert.ToBoolean(random.Next(0, 2)) );
 				break;
 			default:
 				return;
